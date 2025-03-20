@@ -5,10 +5,11 @@ import com.projetintegration.projetintegration.repository.UtilisateurRepository;
 import com.projetintegration.projetintegration.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping(path="UtilAct/")
 public class UtilisateurController {
 

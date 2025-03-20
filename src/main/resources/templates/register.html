@@ -8,7 +8,7 @@
 
 <h2>Register</h2>
 
-<form th:action="@{/register}" th:object="${utilisateur}" method="post">
+<form th:action="@{UtilAct/register}" th:object="${utilisateur}" method="post">
   <div>
     <label for="nom">Nom:</label>
     <input type="text" id="nom" th:field="*{nom}" placeholder="Enter your last name" required/>
