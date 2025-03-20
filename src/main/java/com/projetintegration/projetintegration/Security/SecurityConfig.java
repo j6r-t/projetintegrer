@@ -15,8 +15,7 @@ public class SecurityConfig {
         http
                 .csrf().disable() // Disable CSRF protection (optional, but recommended for APIs)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/UtilAct/register", "/UtilAct/login").permitAll() // Allow access to these endpoints without authentication
-                        .anyRequest().authenticated() // Require authentication for all other endpoints
+                        .anyRequest().permitAll() // Require authentication for all other endpoints
                 );
 
         return http.build();
