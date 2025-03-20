@@ -89,4 +89,8 @@ public class Utilisateur {
     public void setTel(String tel) {
         this.tel = tel;
     }
+
+    public Long getId_utilisateur() {
+        return id_utilisateur;
+    }
 }

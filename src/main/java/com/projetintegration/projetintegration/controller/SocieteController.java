@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path="SocieteAct/")
+@RequestMapping(path = "SocieteAct/")
 public class SocieteController {
+
     @Autowired
-    private SocieteService SocieteService;
+    private SocieteService societeService;
 
     @PostMapping("/ajout_societe")
-    public ResponseEntity<?> ajoute_societe (@RequestBody societe societe){
-        String resp = SocieteService.ajouter_societer(societe);
-        if (resp=="nom societe existe"){
+    public ResponseEntity<?> ajoute_societe(@RequestBody societe societe) {
+        String resp = societeService.ajouter_societer(societe);
+        if (resp.equals("nom societe existe")) {
             return ResponseEntity.notFound().build();
-        }
-        else{
+        } else {
             return ResponseEntity.ok("societe ajoute");
         }
     }
