@@ -19,7 +19,7 @@ public class UtilisateurController {
     public ResponseEntity<?> login (@RequestBody String email, @RequestBody String mdp){
         String reponse = utilisateurService.login(email,mdp);
         if(reponse=="ok"){
-            return ResponseEntity.ok("3aslema");
+            return ResponseEntity.ok("bienvenue");
         }
         else{
             return ResponseEntity.notFound().build();
