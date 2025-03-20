@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "SocieteAct/")
+@RequestMapping(path = "/SocieteAct")
 public class SocieteController {
 
     @Autowired
@@ -25,4 +25,5 @@ public class SocieteController {
             return ResponseEntity.ok("societe ajoute");
         }
     }
+
 }

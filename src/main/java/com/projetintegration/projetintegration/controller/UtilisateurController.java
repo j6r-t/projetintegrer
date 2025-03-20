@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path = "UtilAct/")
+@RequestMapping(path = "/UtilAct")
 public class UtilisateurController {
 
     @Autowired
@@ -18,13 +18,6 @@ public class UtilisateurController {
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;  // Ensure that this is injected
-
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        // Initialize a new Utilisateur object to bind to the form
-        model.addAttribute("utilisateur", new Utilisateur());
-        return "register";  // "register" refers to the name of the Thymeleaf template (register.html)
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email, @RequestParam String mdp) {
@@ -37,7 +30,7 @@ public class UtilisateurController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> ajouter_util(@ModelAttribute Utilisateur utilisateur) {
+    public ResponseEntity<?> ajouter_util(@RequestBody Utilisateur utilisateur) {
         String reponse = utilisateurService.AjouterUtilisateur(utilisateur);
         if ("email !?".equals(reponse)) {
             return ResponseEntity.notFound().build();
