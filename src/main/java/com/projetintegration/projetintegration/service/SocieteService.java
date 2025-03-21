@@ -15,7 +15,7 @@ public class SocieteService {
     private SocieteRepository societeRepository;
 
     @Autowired
-    private UtilisateurRepository utilisateurRepository; // Add this repository
+    private UtilisateurRepository utilisateurRepository;
 
     @Transactional
     public String ajouter_societer(societe societe) {
