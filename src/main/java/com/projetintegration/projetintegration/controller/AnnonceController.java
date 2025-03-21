@@ -1,6 +1,7 @@
 package com.projetintegration.projetintegration.controller;
 
-import com.projetintegration.projetintegration.entity.annonce;
+import com.projetintegration.projetintegration.DTO.AnnonceDTO;
+import com.projetintegration.projetintegration.entity.Annonce;
 import com.projetintegration.projetintegration.repository.AnnonceRepository;
 import com.projetintegration.projetintegration.service.AnnonceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class AnnonceController {
     @Autowired
     private AnnonceRepository annonceRepository;
     @PostMapping("/PosterAnnonce")
-    public ResponseEntity<?> PosterAnnonce(@RequestBody annonce annonce){
+    public ResponseEntity<?> PosterAnnonce(@RequestBody AnnonceDTO annonce){
         String reponse =annonceService.CreerAnnonce(annonce);
         if(reponse.equals("ok")){
             return ResponseEntity.ok("ok");
@@ -26,7 +27,7 @@ public class AnnonceController {
     }
     @DeleteMapping("/SupprimerAnnonce/{id}")
     public ResponseEntity<?> SupprimerAnnonce(@RequestParam Long id){
-        annonce annonce=annonceRepository.getReferenceById(id);
+        Annonce annonce=annonceRepository.getByIdannonce(id);
         if(annonce!=null){
             annonceRepository.delete(annonce);
             return ResponseEntity.ok("ok");

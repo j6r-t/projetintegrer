@@ -1,7 +1,8 @@
 package com.projetintegration.projetintegration.service;
 
+import com.projetintegration.projetintegration.DTO.PostulerDTO;
 import com.projetintegration.projetintegration.entity.Utilisateur;
-import com.projetintegration.projetintegration.entity.annonce;
+import com.projetintegration.projetintegration.entity.Annonce;
 import com.projetintegration.projetintegration.entity.postuler;
 import com.projetintegration.projetintegration.repository.AnnonceRepository;
 import com.projetintegration.projetintegration.repository.PostulerRepository;
@@ -17,13 +18,14 @@ public class PostulerService {
     private AnnonceRepository annonceRepository;
     @Autowired
     private PostulerRepository postulerRepository;
-    public String PostulerDemande(postuler postuler){
-        Utilisateur utilisateur = utilisateurRepository.getById(postuler.getUtilisateur().getId_utilisateur());
-        annonce annonce = annonceRepository.getById_annonce(postuler.getAnnonce().getId_annonce());
+    public String PostulerDemande(PostulerDTO postuler){
+        Utilisateur utilisateur = utilisateurRepository.getById(postuler.getId_utilisateur());
+        Annonce annonce = annonceRepository.getByIdannonce(postuler.getId_annonce());
         postuler postuler1=postulerRepository.getByUtilisateurAndAnnonce(utilisateur,annonce);
         if(utilisateur!=null && annonce!=null){
             if(postuler1==null){
-                postulerRepository.save(postuler);
+                postuler postuler2 = new postuler(utilisateur,annonce);
+                postulerRepository.save(postuler2);
                 return "oui";
             }
             else{

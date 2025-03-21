@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SocieteRepository extends JpaRepository<societe, Long> {
-
+    societe getById(Long id);
 
     societe findByNom(String nom);
 }

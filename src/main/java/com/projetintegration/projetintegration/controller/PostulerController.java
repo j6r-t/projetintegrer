@@ -1,5 +1,6 @@
 package com.projetintegration.projetintegration.controller;
 
+import com.projetintegration.projetintegration.DTO.PostulerDTO;
 import com.projetintegration.projetintegration.entity.postuler;
 import com.projetintegration.projetintegration.repository.PostulerRepository;
 import com.projetintegration.projetintegration.service.PostulerService;
@@ -16,7 +17,7 @@ public class PostulerController {
     @Autowired
     private PostulerService postulerService;
     @PostMapping("/PostulerDemande")
-    public ResponseEntity<?> PostulerDemande(@RequestBody postuler postuler){
+    public ResponseEntity<?> PostulerDemande(@RequestBody PostulerDTO postuler){
         String reponse=postulerService.PostulerDemande(postuler);
         if(reponse.equals("oui")){
             return ResponseEntity.ok("ok");

@@ -17,7 +17,12 @@ public class postuler {
 
     @ManyToOne
     @JoinColumn (name = "id_annonce", nullable = false)
-    private annonce annonce;
+    private Annonce annonce;
+
+    public postuler(Utilisateur utilisateur, Annonce annonce) {
+        this.utilisateur = utilisateur;
+        this.annonce = annonce;
+    }
 
     public Long getId_postuler() {
         return id_postuler;
@@ -35,11 +40,11 @@ public class postuler {
         this.utilisateur = utilisateur;
     }
 
-    public com.projetintegration.projetintegration.entity.annonce getAnnonce() {
+    public com.projetintegration.projetintegration.entity.Annonce getAnnonce() {
         return annonce;
     }
 
-    public void setAnnonce(com.projetintegration.projetintegration.entity.annonce annonce) {
+    public void setAnnonce(com.projetintegration.projetintegration.entity.Annonce annonce) {
         this.annonce = annonce;
     }
 }
