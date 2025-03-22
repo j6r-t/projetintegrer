@@ -1,9 +1,11 @@
 package com.projetintegration.projetintegration.controller;
 
 import com.projetintegration.projetintegration.DTO.LoginDTO;
+import com.projetintegration.projetintegration.DTO.LoginResponseDTO;
 import com.projetintegration.projetintegration.entity.Utilisateur;
 import com.projetintegration.projetintegration.repository.UtilisateurRepository;
 import com.projetintegration.projetintegration.service.UtilisateurService;
+import com.projetintegration.projetintegration.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,7 +27,12 @@ public class UtilisateurController {
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
         String reponse = utilisateurService.login(loginDTO);
         if ("ok".equals(reponse)) {
-            return ResponseEntity.ok("Bienvenue");
+            Utilisateur utilisateur = utilisateurRepository.findByEmail(loginDTO.getEmail());
+            LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+            loginResponseDTO.setToken(JwtTokenUtil.generateToken(utilisateur));
+            loginResponseDTO.setEmail(utilisateur.getEmail());
+            loginResponseDTO.setRole(utilisateur.getRole());
+            return ResponseEntity.ok(loginResponseDTO);
         } else {
             return ResponseEntity.notFound().build();
         }
