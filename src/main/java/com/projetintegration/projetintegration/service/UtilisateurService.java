@@ -1,5 +1,6 @@
 package com.projetintegration.projetintegration.service;
 
+import com.projetintegration.projetintegration.DTO.LoginDTO;
 import com.projetintegration.projetintegration.entity.Utilisateur;
 import com.projetintegration.projetintegration.repository.UtilisateurRepository;
 import jakarta.transaction.Transactional;
@@ -35,9 +36,9 @@ public class UtilisateurService {
         }
     }
 
-    public String login (String email,String password) {
-        Utilisateur u = utilisateurRepository.findByEmail(email);
-        if (u != null && passwordEncoder.matches(password, u.getMdp())) {
+    public String login (LoginDTO loginDTO) {
+        Utilisateur u = utilisateurRepository.findByEmail(loginDTO.getEmail());
+        if (u != null && passwordEncoder.matches(loginDTO.getMdp(), u.getMdp())) {
             return "ok";
         }
         else return "non";

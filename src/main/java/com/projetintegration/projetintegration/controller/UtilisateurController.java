@@ -1,5 +1,6 @@
 package com.projetintegration.projetintegration.controller;
 
+import com.projetintegration.projetintegration.DTO.LoginDTO;
 import com.projetintegration.projetintegration.entity.Utilisateur;
 import com.projetintegration.projetintegration.repository.UtilisateurRepository;
 import com.projetintegration.projetintegration.service.UtilisateurService;
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/UtilAct")
 public class UtilisateurController {
 
@@ -18,10 +20,10 @@ public class UtilisateurController {
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;  // Ensure that this is injected
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String mdp) {
-        String reponse = utilisateurService.login(email, mdp);
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+        String reponse = utilisateurService.login(loginDTO);
         if ("ok".equals(reponse)) {
             return ResponseEntity.ok("Bienvenue");
         } else {
