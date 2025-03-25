@@ -1,37 +1,59 @@
 package com.projetintegration.projetintegration.controller;
 
+import com.projetintegration.projetintegration.entity.Document;
+import com.projetintegration.projetintegration.repository.DocumentRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLConnection;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api")
+@RequestMapping("/api/files")
 public class FileDownloadController {
-    private static final String UPLOAD_DIR = "uploads/";
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/uploads/{fileName}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) throws Exception {
-        // Decode the fileName to handle special characters
-        fileName = java.net.URLDecoder.decode(fileName, "UTF-8");
+    private final DocumentRepository documentRepository;
 
-        // Correct the path to prevent issues with absolute paths
-        Path filePath = Paths.get(UPLOAD_DIR + fileName).normalize();  // Normalize the path to prevent path traversal issues
+    public FileDownloadController(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Resource> viewFile(@PathVariable Long id) throws Exception {
+        // 🔥 Fetch file metadata from the database using the document ID
+        Optional<Document> documentOpt = documentRepository.findById(id);
+
+        if (documentOpt.isEmpty()) {
+            throw new Exception("File not found in database.");
+        }
+
+        Document document = documentOpt.get();
+        String filePathString = document.getFilePath(); // Get file path from database
+
+        // Normalize the file path (for security)
+        Path filePath = Paths.get(filePathString).normalize();
         Resource resource = new UrlResource(filePath.toUri());
-        System.out.println("File path: " + filePath.toString());
 
         if (resource.exists() && resource.isReadable()) {
+            // Detect MIME type (PDF, images, etc.)
+            String mimeType = URLConnection.guessContentTypeFromName(document.getFileName());
+            if (mimeType == null) {
+                mimeType = "application/octet-stream"; // Default if unknown
+            }
+
             return ResponseEntity.ok()
-                    .header("Content-Disposition", "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .contentType(MediaType.parseMediaType(mimeType))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
                     .body(resource);
         } else {
             throw new Exception("File not found or not readable.");
         }
     }
-
 }

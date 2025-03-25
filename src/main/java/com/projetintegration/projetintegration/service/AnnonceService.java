@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AnnonceService {
@@ -19,13 +21,19 @@ public class AnnonceService {
         this.annonceRepository = annonceRepository;
         this.societeRepository = societeRepository;
     }
-    @Transactional
-    public String CreerAnnonce(AnnonceDTO annonce){
-        System.out.println(annonce.getId_societe());
-        societe societe= societeRepository.getById(annonce.getId_societe());
-        Annonce annonce1 = new Annonce(societe,annonce.getDescription());
-        annonceRepository.save(annonce1);
-        return"ok";
+    public List<AnnonceDTO> getAllAnnonces() {
+        List<Annonce> annonces = annonceRepository.findAll();
+        List<AnnonceDTO> annonceDTOs = new ArrayList<>();
+        for (Annonce annonce : annonces) {
+            annonceDTOs.add(new AnnonceDTO(
+                    annonce.getId_annonce(),
+                    annonce.getNomannonce(),
+                    annonce.getLocalisation(),
+                    annonce.getDescription(),
+                    annonce.getSociete().getNom() // Accessing the Societe name
+            ));
+        }
+        return annonceDTOs;
     }
 
 

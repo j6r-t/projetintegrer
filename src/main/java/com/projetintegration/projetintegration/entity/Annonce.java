@@ -17,6 +17,11 @@ public class Annonce {
     @JoinColumn(name = "id_societe", nullable = false)
     private societe societe;
 
+    @Column (name="nomannonce", nullable=false)
+    private String nomannonce;
+
+    @Column (name="localisation", nullable=false)
+    private String localisation;
     @Column (name="description", nullable=false)
     private String description;
 
@@ -26,10 +31,12 @@ public class Annonce {
     public Annonce() {
     }
 
-    public Annonce(com.projetintegration.projetintegration.entity.societe societe, String description) {
+    public Annonce(com.projetintegration.projetintegration.entity.societe societe, String description,String localisation,String nom) {
         this.societe = societe;
         this.description = description;
         this.date_poste=LocalDate.now();
+        this.localisation=localisation;
+        this.nomannonce=nom;
     }
 
     public Long getId_annonce() {
@@ -62,5 +69,21 @@ public class Annonce {
 
     public void setDate_poste(LocalDate date_poste) {
         this.date_poste = date_poste;
+    }
+
+    public String getNomannonce() {
+        return nomannonce;
+    }
+
+    public void setNomannonce(String nomannonce) {
+        this.nomannonce = nomannonce;
+    }
+
+    public String getLocalisation() {
+        return localisation;
+    }
+
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
     }
 }
