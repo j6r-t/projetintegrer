@@ -18,11 +18,51 @@ public class societe {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "localisation", nullable = false)
+    private String localisation;
+
+    @Column(name = "profile_pic")
+    private String profilePic;  // Add this to store profile picture URL
+    @Column(name = "mdp")
+    private String mdp;  // Add this to store profile picture URL
     @ManyToOne
     @JoinColumn(name = "id_utilisateur", referencedColumnName = "id_utilisateur", nullable = false)
     private Utilisateur idhr;
 
+    public String getProfilePic() {
+        return profilePic;
+    }
 
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLocalisation() {
+        return localisation;
+    }
+
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
+    }
 
     public void setId(Long id) {
         this.id_societe = id;

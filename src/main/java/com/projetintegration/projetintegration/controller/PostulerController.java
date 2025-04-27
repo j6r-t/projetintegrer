@@ -6,24 +6,25 @@ import com.projetintegration.projetintegration.repository.PostulerRepository;
 import com.projetintegration.projetintegration.service.PostulerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path="/PostulerAct")
 public class PostulerController {
     @Autowired
     private PostulerService postulerService;
-    @PostMapping("/PostulerDemande")
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/postuler")
     public ResponseEntity<?> PostulerDemande(@RequestBody PostulerDTO postuler){
         String reponse=postulerService.PostulerDemande(postuler);
         if(reponse.equals("oui")){
-            return ResponseEntity.ok("ok");
+            return ResponseEntity.ok("");
         }
         else{
             return ResponseEntity.notFound().build();
         }
     }
+
 }

@@ -24,14 +24,33 @@ public class Annonce {
     private String localisation;
     @Column (name="description", nullable=false)
     private String description;
-
+    @Column (name="type", nullable=false)
+    private String type;
+    @Column (name="salaire", nullable=false)
+    private Long salaire;
     @Column(name = "date_poste", nullable = false, updatable = false)
     private LocalDate date_poste;
 
     public Annonce() {
     }
 
-    public Annonce(com.projetintegration.projetintegration.entity.societe societe, String description,String localisation,String nom) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Long getSalaire() {
+        return salaire;
+    }
+
+    public void setSalaire(Long salaire) {
+        this.salaire = salaire;
+    }
+
+    public Annonce(com.projetintegration.projetintegration.entity.societe societe, String description, String localisation, String nom) {
         this.societe = societe;
         this.description = description;
         this.date_poste=LocalDate.now();

@@ -25,7 +25,7 @@ import java.util.Optional;
 @RequestMapping("/api/photo-profil")
 public class PhotoDeProfilController {
 
-    private static final String UPLOAD_DIR = "C:/uploads/"; // Absolute path for profile pictures
+    private static final String UPLOAD_DIR = "C:/uploads/";
 
     @Autowired
     private PhotoDeProfilRepository photoDeProfilRepository;
@@ -66,7 +66,7 @@ public class PhotoDeProfilController {
             photo.setUtilisateur(utilisateurOpt.get());
             photoDeProfilRepository.save(photo);
 
-            return ResponseEntity.ok("Photo uploaded and metadata saved successfully!");
+            return ResponseEntity.ok("");
 
         } catch (IOException e) {
             e.printStackTrace();

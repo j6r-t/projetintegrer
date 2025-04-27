@@ -30,7 +30,7 @@ public class AnnonceService {
                     annonce.getNomannonce(),
                     annonce.getLocalisation(),
                     annonce.getDescription(),
-                    annonce.getSociete().getNom() // Accessing the Societe name
+                    annonce.getSociete().getNom()
             ));
         }
         return annonceDTOs;

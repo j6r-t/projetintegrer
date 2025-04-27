@@ -17,7 +17,7 @@ public class UtilisateurService {
 
     public UtilisateurService(UtilisateurRepository utilisateurRepository) {
         this.utilisateurRepository = utilisateurRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder();  // Use BCrypt encoder
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
     @Transactional
     public String AjouterUtilisateur(Utilisateur utilisateur){

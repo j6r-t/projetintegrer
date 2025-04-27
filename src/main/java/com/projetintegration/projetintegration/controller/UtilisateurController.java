@@ -21,7 +21,7 @@ public class UtilisateurController {
     private UtilisateurService utilisateurService;
 
     @Autowired
-    private UtilisateurRepository utilisateurRepository;  // Ensure that this is injected
+    private UtilisateurRepository utilisateurRepository;
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
@@ -32,6 +32,8 @@ public class UtilisateurController {
             loginResponseDTO.setToken(JwtTokenUtil.generateToken(utilisateur));
             loginResponseDTO.setEmail(utilisateur.getEmail());
             loginResponseDTO.setRole(utilisateur.getRole());
+            loginResponseDTO.setId(utilisateur.getId());
+            loginResponseDTO.setProfilepic(utilisateur.getProfilepic());
             return ResponseEntity.ok(loginResponseDTO);
         } else {
             return ResponseEntity.notFound().build();
@@ -46,7 +48,8 @@ public class UtilisateurController {
         } else if ("tel !?".equals(reponse)) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok("3aslema");
+            Long userId = utilisateur.getId_utilisateur();
+            return ResponseEntity.ok(userId);
         }
     }
 
@@ -65,10 +68,23 @@ public class UtilisateurController {
     public ResponseEntity<?> ModifierUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
         Utilisateur utilisateur1 = utilisateurRepository.findById(id).orElse(null);
         if (utilisateur1 != null) {
-            utilisateur.setId(id);  // Ensure the ID is set before saving
+            utilisateur.setId(id);
             utilisateurRepository.save(utilisateur);
             return ResponseEntity.ok("OK");
         } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/login/{id}")
+    public ResponseEntity<?> login(@PathVariable Long id) {
+            Utilisateur utilisateur = utilisateurRepository.getById(id);
+            if(utilisateur!=null) {
+                LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+                loginResponseDTO.setProfilepic(utilisateur.getProfilepic());
+                return ResponseEntity.ok(loginResponseDTO);
+            }
+         else {
             return ResponseEntity.notFound().build();
         }
     }

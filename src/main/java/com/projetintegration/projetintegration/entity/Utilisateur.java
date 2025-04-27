@@ -33,10 +33,20 @@ public class Utilisateur {
     @Column(name = "tel", nullable = false)
     private String tel;
 
+    @Column(name = "profilepic", nullable = false)
+    private String profilepic;
+
     public void setId(Long id) {
         this.id_utilisateur = id;
     }
 
+    public String getProfilepic() {
+        return profilepic;
+    }
+
+    public void setProfilepic(String profilepic) {
+        this.profilepic = profilepic;
+    }
 
     public Long getId() {
         return id_utilisateur;

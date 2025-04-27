@@ -25,6 +25,9 @@ public class PostulerService {
         if(utilisateur!=null && annonce!=null){
             if(postuler1==null){
                 postuler postuler2 = new postuler(utilisateur,annonce);
+                postuler2.setCvurl(postuler.getCvurl());
+                postuler2.setLettreurl(postuler.getLettreurl());
+                postuler2.setStatus("demande envoyé");
                 postulerRepository.save(postuler2);
                 return "oui";
             }

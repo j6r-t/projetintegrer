@@ -19,9 +19,42 @@ public class postuler {
     @JoinColumn (name = "id_annonce", nullable = false)
     private Annonce annonce;
 
+    @Column (name = "cvurl", nullable = false)
+    private String cvurl;
+
+    @Column (name = "lettreurl", nullable = false)
+    private String lettreurl;
+
+    @Column (name = "status", nullable = false)
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public postuler(Utilisateur utilisateur, Annonce annonce) {
         this.utilisateur = utilisateur;
         this.annonce = annonce;
+    }
+
+    public String getCvurl() {
+        return cvurl;
+    }
+
+    public void setCvurl(String cvurl) {
+        this.cvurl = cvurl;
+    }
+
+    public String getLettreurl() {
+        return lettreurl;
+    }
+
+    public void setLettreurl(String lettreurl) {
+        this.lettreurl = lettreurl;
     }
 
     public Long getId_postuler() {
